@@ -1,5 +1,4 @@
 from django.db import models
-from resource.utils.ResManager import res_manager, WAS as was
 
 
 class WDF(models.Model):
@@ -21,6 +20,3 @@ class WAS(models.Model):
         if self.describe != "":
             return self.hash + ": " + self.describe
         return self.hash
-
-    def show(self):
-        res = res_manager.get_res(self.wdf.name, self.hash)

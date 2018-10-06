@@ -1,6 +1,7 @@
 from PIL import Image
 from io import BytesIO
 from .WDF import WDF
+import imageio
 
 
 class WAS:
@@ -63,3 +64,9 @@ class ResManager:
 
 
 res_manager = ResManager()
+
+
+def images2gif(images):
+    gif = BytesIO()
+    imageio.mimsave(gif, images, duration=1)
+    return gif

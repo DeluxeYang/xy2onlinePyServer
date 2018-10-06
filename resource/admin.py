@@ -2,7 +2,7 @@ from django.contrib import admin
 from resource.models.WDF import *
 from resource.models.character import *
 
-# Register your models here.
+
 admin.site.register(WDF)
 admin.site.register(WAS)
 admin.site.register(Race)

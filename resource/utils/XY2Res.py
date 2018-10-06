@@ -1,5 +1,5 @@
 from ctypes import *
-jpeg_dll = cdll.LoadLibrary("utils/xy2res.dll")
+jpeg_dll = cdll.LoadLibrary("resource/utils/xy2res.dll")
 
 jpeg_dll.jpeg_to_rgb.argtype = [c_char_p, c_int]
 jpeg_dll.jpeg_to_rgb.restype = POINTER(c_char * 230400)
@@ -19,17 +19,20 @@ def read_pic(data, pic, color_board_origin, color_board):
     _bytes = res.contents.raw
     return _bytes
 
+
 def read_new_map_to_rgb(data):
     res = jpeg_dll.jpeg_to_rgb(data, len(data))
     _bytes = res.contents.raw
     jpeg_dll.free_rgb_data()
     return _bytes
 
+
 def read_old_map_to_rgb(data):
     res = jpeg_dll.mapx_to_rgb(data, len(data))
     _bytes = res.contents.raw
     jpeg_dll.free_rgb_data()
     return _bytes
+
 
 def decompress_mask(data, out_size):
     jpeg_dll.decompress_mask.argtype = [c_void_p, c_int]
