@@ -2,7 +2,7 @@ from PIL import Image
 from io import BytesIO
 from .WDF import WDF
 import imageio
-
+import numpy
 
 class WAS:
     """
@@ -50,7 +50,8 @@ class ResManager:
                 for j in range(_instance.direction_pic_num):
                     pic = _instance.pic[i * _instance.direction_pic_num + j]
                     im = Image.frombuffer("RGBA", (pic.width, pic.height), pic.data, "raw", "RGBA", 0, 1)
-                    pic_list.append(im)
+                    arr = numpy.array(im)
+                    pic_list.append(arr)
                 res.image_group.append(pic_list)
         elif _instance.type == "JPG":
             jpg_file = BytesIO(_instance.data)
@@ -66,7 +67,10 @@ class ResManager:
 res_manager = ResManager()
 
 
-def images2gif(images):
-    gif = BytesIO()
-    imageio.mimsave(gif, images, duration=1)
-    return gif
+def get_gif(wdf, _hash, path):
+    res = res_manager.get_res(wdf, _hash)
+    wdf_name = wdf.replace(".", "_")
+    file_name = path + wdf_name + "_" + _hash + ".gif"
+    if isinstance(res, WAS):
+        imageio.mimsave(file_name, res.image_group[0], duration=0.1)
+        return file_name
