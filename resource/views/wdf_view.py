@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from resource.models.WDF import WDF, WAS
+from resource.models.wdf import WDF, WAS
 # Create your views here.
 
 

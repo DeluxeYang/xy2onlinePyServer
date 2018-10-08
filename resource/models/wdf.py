@@ -1,5 +1,6 @@
 from django.db import models
-from resource.utils.ResManager import get_gif
+from resource.utils.ResManager import save_gif
+from xy2onlineServer.settings import STATIC_PATH
 
 
 class WDF(models.Model):
@@ -24,5 +25,7 @@ class WAS(models.Model):
         return self.hash
 
     def save(self, *args, **kwargs):
-        self.image = get_gif(self.wdf.name, self.hash, path='static/was/')
+        sub_path = 'was/'
+        file_name = save_gif(self.wdf.name, self.hash, path=STATIC_PATH + '/' + sub_path)
+        self.image = sub_path + file_name
         super().save(*args, **kwargs)

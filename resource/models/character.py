@@ -1,6 +1,6 @@
 from django.db import models
 
-from resource.models.WDF import WAS
+from resource.models.wdf import WAS
 
 
 class Race(models.Model):
@@ -42,4 +42,4 @@ class CharacterAction(models.Model):
     weapon = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.character.name + ": " + self.name + "（方向: " + str(self.was.direction_num) + "）"

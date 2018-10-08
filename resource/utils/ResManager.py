@@ -4,6 +4,7 @@ from .WDF import WDF
 import imageio
 import numpy
 
+
 class WAS:
     """
     WAS动画管理类，存储各个方向的帧图片和帧mask
@@ -67,10 +68,10 @@ class ResManager:
 res_manager = ResManager()
 
 
-def get_gif(wdf, _hash, path):
+def save_gif(wdf, _hash, path):
     res = res_manager.get_res(wdf, _hash)
     wdf_name = wdf.replace(".", "_")
-    file_name = path + wdf_name + "_" + _hash + ".gif"
+    file_name = wdf_name + "_" + _hash + ".gif"
     if isinstance(res, WAS):
-        imageio.mimsave(file_name, res.image_group[0], duration=0.1)
+        imageio.mimsave(path + file_name, res.image_group[0], duration=0.1)
         return file_name

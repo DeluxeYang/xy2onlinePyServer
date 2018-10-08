@@ -120,5 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_PATH = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [STATIC_PATH]
 
-XY2_PATH = "G:/旧/大话西游2/"
+
+XY2_PATH = "H:/旧/大话西游2/"
