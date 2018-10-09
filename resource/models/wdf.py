@@ -25,7 +25,12 @@ class WAS(models.Model):
         return self.hash
 
     def save(self, *args, **kwargs):
-        sub_path = 'was/'
-        file_name = save_gif(self.wdf.name, self.hash, path=STATIC_PATH + '/' + sub_path)
-        self.image = sub_path + file_name
-        super().save(*args, **kwargs)
+        try:
+            sub_path = 'was/'
+            file_name, direction_num, frame_num = save_gif(self.wdf.name, self.hash, path=STATIC_PATH + '/' + sub_path)
+            self.image = sub_path + file_name
+            self.direction_num = direction_num
+            self.frame_num = frame_num
+            super().save(*args, **kwargs)
+        except Exception as e:
+            print(e)

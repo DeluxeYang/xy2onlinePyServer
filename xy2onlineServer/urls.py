@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from resource.views.data_import import *
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('data_import/character/', character_import),
 ]

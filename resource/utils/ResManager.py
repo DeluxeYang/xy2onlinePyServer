@@ -74,4 +74,4 @@ def save_gif(wdf, _hash, path):
     file_name = wdf_name + "_" + _hash + ".gif"
     if isinstance(res, WAS):
         imageio.mimsave(path + file_name, res.image_group[0], duration=0.1)
-        return file_name
+        return file_name, res.direction_num, res.frame_num
