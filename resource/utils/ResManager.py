@@ -62,7 +62,14 @@ class ResManager:
             res = Image.open(tga_file)
         elif _instance.type == "Chat":
             res = _instance.chats
+        else:
+            raise Exception("类型错误")
         return res
+
+    def get_wdf_file_list(self, wdf_name):
+        if wdf_name not in self.wdf_pool:  # 该实例为单例模式，并且将所有已读取的wdf资源缓存
+            self.wdf_pool[wdf_name] = WDF(wdf_name)
+        return self.wdf_pool[wdf_name].file_dict.keys()
 
 
 res_manager = ResManager()

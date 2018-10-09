@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from resource.utils.ResManager import save_gif
 from xy2onlineServer.settings import STATIC_PATH
@@ -32,5 +33,7 @@ class WAS(models.Model):
             self.direction_num = direction_num
             self.frame_num = frame_num
             super().save(*args, **kwargs)
+            return True
         except Exception as e:
             print(e)
+            return False

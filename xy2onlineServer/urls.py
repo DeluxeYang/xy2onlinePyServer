@@ -21,4 +21,6 @@ from resource.views.data_import import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('data_import/character/', character_import),
+    path('data_import/wdf/', wdf_import),
+    path('data_import/get_was_list/', get_was_list),
 ]
