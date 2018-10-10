@@ -36,7 +36,7 @@ class Character(models.Model):
     describe = models.CharField(max_length=300)
 
     def __str__(self):
-        return self.name_cn
+        return self.race.name_cn + ": " + self.name_cn
 
 
 class CharacterAction(models.Model):

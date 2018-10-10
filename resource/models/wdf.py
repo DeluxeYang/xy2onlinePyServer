@@ -37,3 +37,6 @@ class WAS(models.Model):
         except Exception as e:
             print(e)
             return False
+
+    def update(self, *args, **kwargs):
+        super().save(*args, **kwargs)

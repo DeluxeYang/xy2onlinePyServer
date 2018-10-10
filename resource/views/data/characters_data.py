@@ -511,8 +511,7 @@ characters = {
             "jinglingxian": {
                 "name": "精灵仙",
                 "gender": 0,
-                "run": ["shape.wdf", "0xD4F344C4"],
-                "jag": ["shape.wdf", "0x6E5FE367"],  # 0xD4265BBB
+                "run": ["shape.wdf", "0x6E5FE367"],  # 0xD4265BBB
                 "stand": ["shape.wdf", "0x180B0E61"],
                 "stand_tease": ["shape.wdf", "0x42135B0E"],  # 站立0x993F4115, 动作0x4FF09198
                 "walk": ["shape.wdf", "0x068F2E9B"],  # 0x6A3E0AA5
@@ -527,7 +526,7 @@ characters = {
                         "dead": ["shape.wdf", "0xF09E9903"]
                     }, 
                     "glove": {
-                        "run": ["", "0x"],
+                        "run": ["shape.wdf", "0xD4F344C4"],
                         "stand": ["shape.wdf", "0x5667B2FD"],
                         "attack": ["shape.wdf", "0x607ED5BD"],
                         "beaten": ["shape.wdf", "0xC2D2E710"],
@@ -571,6 +570,7 @@ characters = {
             },
             "shentianbing": {
                 "name": "神天兵",
+                "gender": 1,
                 "run": ["shape.wdf", "0x41EC377D"],  # 0x4585112A
                 "stand": ["shape.wdf", "0x22CED97B"],
                 "stand_tease": ["shape.wdf", "0x25A0852F"],  # 站立0xCA26616D 0x893C247B
@@ -600,6 +600,7 @@ characters = {
             },
             "longzhanjiang": {
                 "name": "龙战将",
+                "gender": 1,
                 "run": ["shape.wdf", "0xB9917F2B"],  # 0xD1939D57
                 "stand": ["shape.wdf", "0x41D5085D"],
                 "stand_tease": ["shape.wdf", "0x730404F5"],  # 站立 动作0x8EEF1809 0xA79A4859
