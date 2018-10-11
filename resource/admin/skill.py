@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from resource.models.character import Skill
+from resource.models.faction import Skill
 
 
 class SkillInline(admin.TabularInline):

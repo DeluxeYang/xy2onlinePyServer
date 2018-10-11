@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from resource.models.character import *
+from resource.models.character import CharacterAction
 from django.utils.safestring import mark_safe
 from xy2onlineServer.settings import STATIC_URL
 

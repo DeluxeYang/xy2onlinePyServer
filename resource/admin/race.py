@@ -1,5 +1,5 @@
 from django.contrib import admin
-from resource.models.character import Race
+from resource.models.race import Race
 from resource.admin.faction import FactionInline
 
 

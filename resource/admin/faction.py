@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from resource.models.character import Faction
+from resource.models.faction import Faction
 from resource.admin.skill import SkillInline
 
 
