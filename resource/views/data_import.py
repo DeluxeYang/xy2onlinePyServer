@@ -1,10 +1,8 @@
 from django.shortcuts import HttpResponse
 from resource.utils.ResManager import res_manager
-from resource.models.wdf import WDF, WAS
+from resource.models.wdf import WDF
 from resource.models.character import *
-# Create your views here.
-
-from .data.characters_data import characters
+from resource.models.monster import Monster, MonsterAction
 
 
 def wdf_import(request):
@@ -15,7 +13,7 @@ def wdf_import(request):
         was = WAS()
         was.wdf = wdf
         was.hash = _hash
-        flag = was.save()
+        flag = was.save_with_file()
         if flag:
             count += 1
     return HttpResponse(str(len(was_list)) + "success!" + str(count))
@@ -28,7 +26,58 @@ def get_was_list(request):
     return HttpResponse("success!")
 
 
+def monster_import(request):
+    from .data.monsters_data import monsters
+    for monster_name in monsters:
+        monster = monsters[monster_name]
+
+        monster_model = Monster()
+        monster_model.name = monster_name
+        monster_model.name_cn = monster["name"]
+        monster_model.title_level = monster["title_level"]
+        monster_model.init_max_hp = monster["HP"]
+        monster_model.init_max_mp = monster["MP"]
+        monster_model.init_max_ap = monster["AP"]
+        monster_model.init_max_sp = monster["SP"]
+        monster_model.init_max_speed = monster["speed"]
+        monster_model.init_max_growth = monster["growth"]
+        monster_model.init_max_high_growth = monster["high_growth"]
+
+        monster_model.gold = monster["gold"]
+        monster_model.wood = monster["wood"]
+        monster_model.soil = monster["soil"]
+        monster_model.water = monster["water"]
+        monster_model.fire = monster["fire"]
+        monster_model.save()
+
+        for action_name in ["run", "stand", "walk", "attack", "beaten", "defence", "magic", "beaten_down", "static"]:
+            action = monster[action_name]
+            wdf = action[0]
+            _hash = action[1]
+            if wdf == "":
+                continue
+            wdf_model = WDF.objects.get(name=wdf)
+            try:
+                was_model = WAS.objects.get(wdf=wdf_model, hash=_hash)
+            except Exception as e:
+                print(e)
+                print(monster_name, action_name, "@@@@@", _hash, )
+                continue
+            monster_action = MonsterAction()
+            monster_action.name = action_name
+            monster_action.monster = monster_model
+            monster_action.was = was_model
+            monster_action.save()
+
+            was_model.hooked = True
+            was_model.describe = monster_model.name_cn + ": " + action_name
+            was_model.update()
+
+    return HttpResponse("success!")
+
+
 def character_import(request):
+    # from .data.characters_data import characters
     # for race_name in characters:
     #     for character_name in characters[race_name]:
     #         character_info = characters[race_name][character_name]
