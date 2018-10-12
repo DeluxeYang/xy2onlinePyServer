@@ -1,5 +1,6 @@
 from django.db import models
 from resource.models.race import Race
+from resource.models.effect import Effect
 
 
 class Faction(models.Model):
@@ -24,6 +25,7 @@ class Faction(models.Model):
 
 class Skill(models.Model):
     faction = models.ForeignKey(Faction, related_name='Skill', on_delete=models.CASCADE)
+    effect = models.ForeignKey(Effect, related_name='Skill', on_delete=models.CASCADE)
     name = models.CharField(max_length=30, unique=True)
     name_cn = models.CharField(max_length=30)
     level = models.IntegerField(default=1)

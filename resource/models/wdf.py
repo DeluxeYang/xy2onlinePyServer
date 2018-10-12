@@ -1,4 +1,3 @@
-import os
 from django.db import models
 from resource.utils.ResManager import save_gif
 from xy2onlineServer.settings import STATIC_PATH

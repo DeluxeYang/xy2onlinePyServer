@@ -1,5 +1,6 @@
 from django.db import models
 from resource.models.wdf import WAS
+from resource.models.effect import Effect
 
 
 class Monster(models.Model):
@@ -40,6 +41,7 @@ class MonsterAction(models.Model):
 
 
 class MonsterSkill(models.Model):
+    effect = models.ForeignKey(Effect, related_name='MonsterSkill', on_delete=models.CASCADE)
     name = models.CharField(max_length=30, unique=True)
     name_cn = models.CharField(max_length=30)
     nick_name = models.CharField(max_length=30)
