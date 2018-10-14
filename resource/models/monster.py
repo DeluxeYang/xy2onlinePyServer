@@ -9,6 +9,7 @@ class Monster(models.Model):
     type = models.IntegerField(default=0, choices=((0, "普通召唤兽"),(10, "畜牧召唤兽"),(20, "新召唤兽"),(30, "天书召唤兽"),
                                                    (40, "高级守护"),(50, "龙涎丸召唤兽"),(99, "神兽")))
     title_level = models.IntegerField(default=0)  # 称谓
+    prototype = models.IntegerField(default=0)  # 原型
 
     init_max_hp = models.FloatField(default=0.0)
     init_max_mp = models.FloatField(default=0.0)
