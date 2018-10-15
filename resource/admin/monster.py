@@ -18,7 +18,7 @@ class MonsterAndSkillInline(admin.TabularInline):
     extra = 1
 
 class MonsterAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "type", "title_level", "init_max_hp", "init_max_mp", "init_max_ap",
+    list_display = ("id", "__str__", "type", "title_level", "init_max_hp", "init_max_mp", "init_max_ap",
                     "init_max_sp", "init_max_speed", "init_max_growth")
     inlines = [MonsterActionInline, MonsterAndSkillInline]
 
