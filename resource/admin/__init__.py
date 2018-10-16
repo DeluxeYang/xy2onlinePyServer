@@ -6,3 +6,5 @@ from .character import *
 from .character_action import *
 from .effect import *
 from .monster import *
+from .shape import *
+from .symbolic_animal import *
