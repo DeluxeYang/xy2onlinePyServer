@@ -26,52 +26,116 @@ def get_was_list(request):
     return HttpResponse("success!")
 
 
-def monster_import(request):
-    from .data.monsters_data import monsters
-    for monster_name in monsters:
-        monster = monsters[monster_name]
-
-        monster_model = Monster()
-        monster_model.name = monster_name
-        monster_model.name_cn = monster["name"]
-        monster_model.title_level = monster["title_level"]
-        monster_model.init_max_hp = monster["HP"]
-        monster_model.init_max_mp = monster["MP"]
-        monster_model.init_max_ap = monster["AP"]
-        monster_model.init_max_sp = monster["SP"]
-        monster_model.init_max_speed = monster["speed"]
-        monster_model.init_max_growth = monster["growth"]
-        monster_model.init_max_high_growth = monster["high_growth"]
-
-        monster_model.gold = monster["gold"]
-        monster_model.wood = monster["wood"]
-        monster_model.soil = monster["soil"]
-        monster_model.water = monster["water"]
-        monster_model.fire = monster["fire"]
-        monster_model.save()
-
-        for action_name in ["run", "stand", "walk", "attack", "beaten", "defence", "magic", "beaten_down", "static"]:
-            action = monster[action_name]
-            wdf = action[0]
-            _hash = action[1]
-            if wdf == "":
+def symbolic_animal_import(request):
+    from .data.symbolic_animal_data import data
+    from resource.models.symbolic_animals import SymbolicAnimal, SymbolicAnimalAction
+    for shape_name in data:
+        symbolic_animal = SymbolicAnimal()
+        symbolic_animal.name = shape_name
+        symbolic_animal.name_cn = data[shape_name]["name"]
+        symbolic_animal.save()
+        for action_name in ["run", "stand"]:
+            action = data[shape_name][action_name]
+            if action[0] == "":
                 continue
-            wdf_model = WDF.objects.get(name=wdf)
             try:
-                was_model = WAS.objects.get(wdf=wdf_model, hash=_hash)
+                wdf = WDF.objects.get(name=action[0])
+                was = WAS.objects.get(wdf=wdf, hash=action[1])
             except Exception as e:
-                print(e)
-                print(monster_name, action_name, "@@@@@", _hash, )
+                print(e, shape_name, action_name)
                 continue
-            monster_action = MonsterAction()
-            monster_action.name = action_name
-            monster_action.monster = monster_model
-            monster_action.was = was_model
-            monster_action.save()
+            shape_action = SymbolicAnimalAction()
+            shape_action.shape = symbolic_animal
+            shape_action.was = was
+            shape_action.name = action_name
+            shape_action.save()
 
-            was_model.hooked = True
-            was_model.describe = monster_model.name_cn + ": " + action_name
-            was_model.update()
+            was.hooked = True
+            was.describe = data[shape_name]["name"] + ":" + action_name
+            was.save()
+    return HttpResponse("success!")
+
+
+def shape_import(request):
+    # from .data.npc_data import NPC
+    # from resource.models.shape import Shape, ShapeAction
+    # for shape_name in NPC:
+    #     keys = list(NPC[shape_name].keys())
+    #
+    #     new_shape = Shape.objects.get(name=shape_name)
+    #
+    #     keys.remove("name")
+    #
+    #     for action_name in keys:
+    #         action = NPC[shape_name][action_name]
+    #         if action[0] == "":
+    #             continue
+    #         try:
+    #             wdf = WDF.objects.get(name=action[0])
+    #             was = WAS.objects.get(wdf=wdf, hash=action[1])
+    #         except Exception as e:
+    #             print(e, shape_name, action_name)
+    #             continue
+    #         shape_action = ShapeAction()
+    #         shape_action.shape = new_shape
+    #         shape_action.was = was
+    #         shape_action.name = action_name
+    #         shape_action.save()
+    #
+    #         was.hooked = True
+    #         was.describe = NPC[shape_name]["name"] + ":" + action_name
+    #         was.save()
+    #
+    #     print(keys)
+    return HttpResponse("success!")
+
+
+def monster_import(request):
+    # from .data.monsters_data import monsters
+    # for monster_name in monsters:
+    #     monster = monsters[monster_name]
+    #
+    #     monster_model = Monster()
+    #     monster_model.name = monster_name
+    #     monster_model.name_cn = monster["name"]
+    #     monster_model.title_level = monster["title_level"]
+    #     monster_model.init_max_hp = monster["HP"]
+    #     monster_model.init_max_mp = monster["MP"]
+    #     monster_model.init_max_ap = monster["AP"]
+    #     monster_model.init_max_sp = monster["SP"]
+    #     monster_model.init_max_speed = monster["speed"]
+    #     monster_model.init_max_growth = monster["growth"]
+    #     monster_model.init_max_high_growth = monster["high_growth"]
+    #
+    #     monster_model.gold = monster["gold"]
+    #     monster_model.wood = monster["wood"]
+    #     monster_model.soil = monster["soil"]
+    #     monster_model.water = monster["water"]
+    #     monster_model.fire = monster["fire"]
+    #     monster_model.save()
+    #
+    #     for action_name in ["run", "stand", "walk", "attack", "beaten", "defence", "magic", "beaten_down", "static"]:
+    #         action = monster[action_name]
+    #         wdf = action[0]
+    #         _hash = action[1]
+    #         if wdf == "":
+    #             continue
+    #         wdf_model = WDF.objects.get(name=wdf)
+    #         try:
+    #             was_model = WAS.objects.get(wdf=wdf_model, hash=_hash)
+    #         except Exception as e:
+    #             print(e)
+    #             print(monster_name, action_name, "@@@@@", _hash, )
+    #             continue
+    #         monster_action = MonsterAction()
+    #         monster_action.name = action_name
+    #         monster_action.monster = monster_model
+    #         monster_action.was = was_model
+    #         monster_action.save()
+    #
+    #         was_model.hooked = True
+    #         was_model.describe = monster_model.name_cn + ": " + action_name
+    #         was_model.update()
 
     return HttpResponse("success!")
 
