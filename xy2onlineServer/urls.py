@@ -25,6 +25,7 @@ urlpatterns = [
     path('data_import/shape/', shape_import),
     path('data_import/symbolic_animal/', symbolic_animal_import),
 
+    path('data_import/task/', task),
     path('data_import/wdf/', wdf_import),
     path('data_import/get_was_list/', get_was_list),
 ]

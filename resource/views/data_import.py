@@ -2,6 +2,7 @@ from django.shortcuts import HttpResponse
 from resource.utils.ResManager import res_manager
 from resource.models.wdf import WDF
 from resource.models.character import *
+from resource.models.shape import *
 from resource.models.monster import Monster, MonsterAction
 
 
@@ -23,6 +24,16 @@ def get_was_list(request):
     wdf = WDF.objects.get(name="shape.wdf")
     was_list = res_manager.get_wdf_file_list(wdf.name)
     print(was_list)
+    return HttpResponse("success!")
+
+
+def task(request):
+    _list = ShapeAction.objects.filter(name="jag")
+    for action in _list:
+        action.name = "jog"
+        action.save()
+        action.was.describe = action.shape.name_cn + ": " + action.name
+        action.was.save()
     return HttpResponse("success!")
 
 
