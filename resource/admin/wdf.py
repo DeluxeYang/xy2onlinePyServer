@@ -7,7 +7,8 @@ from xy2onlineServer.settings import STATIC_URL
 
 class WASAdmin(admin.ModelAdmin):
     list_display = ("__str__", "hooked", 'image_data')
-    list_filter = ('hooked',)
+    list_filter = ('hooked', "wdf")
+    search_fields = ['hash']
     readonly_fields = ('image_data',)
 
     def image_data(self, obj):
