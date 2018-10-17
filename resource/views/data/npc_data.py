@@ -46,18 +46,3 @@ NPC = {
         "stand_tease": ["shape.wd1", "0xFB7F9483"]
     },
 }
-
-
-# "": {
-#     "name": "",
-#     "run": ["", "0x"],
-#     "stand": ["", "0x"],
-#     "walk": ["", "0x"],
-#     "attack": ["", "0x"],
-#     "beaten": ["", "0x"],
-#     "defence": ["", "0x"],
-#     "magic": ["", "0x"],
-#     "static": ["", "0x"],
-#     "beaten_down": ["", "0x"],
-#     "dead": ["", "0x"],
-# },

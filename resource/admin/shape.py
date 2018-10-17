@@ -26,17 +26,18 @@ class ShapeActionInline(admin.TabularInline):
 
 
 class ShapeAdmin(admin.ModelAdmin):
-    list_display = ("__str__", 'shape_actions')
+    list_display = ("id", "__str__", 'shape_actions')
     inlines = [ShapeActionInline]
 
     readonly_fields = ('shape_actions',)
 
     def shape_actions(self, obj):
         actions = ShapeAction.objects.filter(shape=obj)
-        action_names = ""
+        html = ""
         for action in actions:
-            action_names += action.name + "; "
-        return action_names
+            temp = u'<p>%s</p><img src="%s%s"/>' % (action.name, STATIC_URL, action.was.image.url)
+            html += temp
+        return mark_safe(html)
 
     shape_actions.short_description = u'文本'
 
