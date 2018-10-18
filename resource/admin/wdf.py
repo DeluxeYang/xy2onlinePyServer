@@ -6,10 +6,11 @@ from xy2onlineServer.settings import STATIC_URL
 
 
 class WASAdmin(admin.ModelAdmin):
-    list_display = ("__str__", "hooked", 'image_data')
+    list_display = ("__str__", "id", "direction_num", "hooked", 'image_data', "describe")
     list_filter = ('hooked', "wdf")
-    search_fields = ['hash']
+    search_fields = ('hash', 'describe', 'id')
     readonly_fields = ('image_data',)
+    list_editable = ("describe",)
 
     def image_data(self, obj):
         return mark_safe(u'<img src="%s%s"/>' % (STATIC_URL, obj.image.url))
