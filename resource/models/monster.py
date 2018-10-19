@@ -10,6 +10,7 @@ class Monster(models.Model):
                                                    (40, "高级守护"),(50, "龙涎丸召唤兽"),(99, "神兽")))
     title_level = models.IntegerField(default=0)  # 称谓
     prototype = models.IntegerField(default=0)  # 原型
+    skin_num = models.IntegerField(default=0)  # 皮肤数量
 
     init_max_hp = models.FloatField(default=0.0)
     init_max_mp = models.FloatField(default=0.0)
@@ -40,6 +41,12 @@ class MonsterAction(models.Model):
     def __str__(self):
         return self.monster.name_cn + ": " + self.name + "（方向: " + str(self.was.direction_num) + "）"
 
+    def save(self, *args, **kwargs):
+        self.was.hooked = True
+        self.was.describe = self.monster.name_cn + ": " + self.name
+        self.was.save()
+        super().save(*args, **kwargs)
+
 
 class MonsterSkill(models.Model):
     effect = models.ForeignKey(Effect, related_name='MonsterSkill', on_delete=models.CASCADE)
@@ -59,3 +66,28 @@ class MonsterAndSkill(models.Model):
 
     def __str__(self):
         return self.monster.name_cn + ": " + self.monster_skill.name_cn
+
+
+class MonsterSkin(models.Model):
+    monster = models.ForeignKey(Monster, related_name='MonsterSkin', on_delete=models.CASCADE)
+    name = models.CharField(max_length=30, unique=True)
+    name_cn = models.CharField(max_length=30)
+    describe = models.CharField(max_length=300, null=True, blank=True)
+
+    def __str__(self):
+        return self.monster.name_cn + ": " + self.name_cn
+
+class MonsterSkinAction(models.Model):
+    monster_skin = models.ForeignKey(MonsterSkin, related_name='MonsterSkinAction', on_delete=models.CASCADE)
+    was = models.ForeignKey(WAS, related_name='MonsterSkinAction', on_delete=models.CASCADE)
+    name = models.CharField(max_length=30)
+    name_cn = models.CharField(max_length=30, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.monster_skin) + ": " + self.name + "（方向: " + str(self.was.direction_num) + "）"
+
+    def save(self, *args, **kwargs):
+        self.was.hooked = True
+        self.was.describe = str(self.monster_skin) + ": " + self.name
+        self.was.save()
+        super().save(*args, **kwargs)
