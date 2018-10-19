@@ -19,3 +19,9 @@ class ShapeAction(models.Model):
 
     def __str__(self):
         return self.shape.name_cn + self.name
+
+    def save(self, *args, **kwargs):
+        self.was.hooked = True
+        self.was.describe = self.shape.name_cn + ": " + self.name
+        self.was.save()
+        super().save(*args, **kwargs)

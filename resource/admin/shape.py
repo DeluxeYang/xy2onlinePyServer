@@ -7,6 +7,7 @@ from xy2onlineServer.settings import STATIC_URL
 class ShapeActionAdmin(admin.ModelAdmin):
     list_display = ("__str__", 'image_data')
     readonly_fields = ('image_data',)
+    raw_id_fields = ("was", "shape")
 
     def image_data(self, obj):
         return mark_safe(u'<img src="%s%s"/>' % (STATIC_URL, obj.was.image.url))
