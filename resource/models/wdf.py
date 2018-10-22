@@ -20,7 +20,7 @@ class WAS(models.Model):
     image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
-        if self.describe != "":
+        if self.describe:
             return self.hash + ": " + self.describe
         return self.hash
 
@@ -36,6 +36,3 @@ class WAS(models.Model):
         except Exception as e:
             print(e)
             return False
-
-    def update(self, *args, **kwargs):
-        super().save(*args, **kwargs)
