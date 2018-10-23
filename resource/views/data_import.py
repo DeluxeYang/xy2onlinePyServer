@@ -28,10 +28,25 @@ def get_was_list(request):
 
 
 def task(request):
-    wdf = WDF.objects.get(name="shape.wd2")
-    was_list = WAS.objects.filter(wdf=wdf, hooked=False)
-    for was in was_list:
-        was.save_with_file()
+    from resource.models.mount import MountAction, Mount
+    from resource.models.character import CharacterMount
+    cms = CharacterMount.objects.all()
+
+    for cm in cms:
+        race = cm.character.race
+        m = Mount.objects.get(race=race, level=cm.level)
+
+        was = cm.was
+        character = cm.character
+
+        new_ma = MountAction()
+        new_ma.mount = m
+        new_ma.character = character
+        new_ma.was = was
+        new_ma.name = cm.name
+        new_ma.name_cn = cm.name_cn
+        new_ma.save()
+
     return HttpResponse("success!")
 
 
