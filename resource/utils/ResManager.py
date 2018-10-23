@@ -47,13 +47,26 @@ class ResManager:
             res = WAS(_instance.direction_num, _instance.direction_pic_num,
                       _instance.x, _instance.y, _instance.width, _instance.height)  # Res资源实例
             for i in range(_instance.direction_num):
-                pic_list = []
+
+                temp = []
                 for j in range(_instance.direction_pic_num):
                     pic = _instance.pic[i * _instance.direction_pic_num + j]
                     im = Image.frombuffer("RGBA", (pic.width, pic.height), pic.data, "raw", "RGBA", 0, 1)
+                    size = pic.width * pic.height
                     arr = numpy.array(im)
-                    pic_list.append(arr)
+                    temp.append((size, arr))
+                _max = 0
+                cur = 0
+                pos = 0
+                for obj in temp:
+                    if obj[0] > _max:
+                        _max = obj[0]
+                        cur = pos
+                    pos += 1
+                temp = temp[cur:] + temp[:cur]
+                pic_list = [x[1] for x in temp]
                 res.image_group.append(pic_list)
+
         elif _instance.type == "JPG":
             jpg_file = BytesIO(_instance.data)
             res = Image.open(jpg_file)
