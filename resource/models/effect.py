@@ -8,3 +8,9 @@ class Effect(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.was.hooked = True
+        self.was.describe = self.name + ": " + self.name_cn
+        self.was.save()
+        super().save(*args, **kwargs)
