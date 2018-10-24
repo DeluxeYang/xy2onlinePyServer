@@ -26,7 +26,7 @@ class WAS(models.Model):
 
     def save_with_file(self, *args, **kwargs):
         try:
-            sub_path = 'was/'
+            sub_path = 'bmp/'
             file_name, direction_num, frame_num = save_gif(self.wdf.name, self.hash, path=STATIC_PATH + '/' + sub_path)
             self.image = sub_path + file_name
             self.direction_num = direction_num

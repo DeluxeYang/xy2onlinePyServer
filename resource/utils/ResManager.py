@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, TgaImagePlugin
 from io import BytesIO
 from .WDF import WDF
 import imageio
@@ -47,7 +47,6 @@ class ResManager:
             res = WAS(_instance.direction_num, _instance.direction_pic_num,
                       _instance.x, _instance.y, _instance.width, _instance.height)  # Res资源实例
             for i in range(_instance.direction_num):
-
                 temp = []
                 for j in range(_instance.direction_pic_num):
                     pic = _instance.pic[i * _instance.direction_pic_num + j]
@@ -91,7 +90,12 @@ res_manager = ResManager()
 def save_gif(wdf, _hash, path):
     res = res_manager.get_res(wdf, _hash)
     wdf_name = wdf.replace(".", "_")
-    file_name = wdf_name + "_" + _hash + ".gif"
     if isinstance(res, WAS):
+        file_name = wdf_name + "_" + _hash + ".gif"
         imageio.mimsave(path + file_name, res.image_group[0], duration=0.1)
         return file_name, res.direction_num, res.frame_num
+    elif isinstance(res, TgaImagePlugin.TgaImageFile):
+        file_name = wdf_name + "_" + _hash + ".bmp"
+        res.save(path + file_name, "BMP")
+        res.close()
+        return file_name, 1, 1

@@ -71,7 +71,9 @@ class WDF:
             return TGA(wdf_unit, self.hand)
         elif flag == ['50', '20']:
             return Chat(wdf_unit, self.hand)
-        print(flag)
+        else:
+            print(flag)
+            return NoneType(wdf_unit, self.hand)
 
     def read_bytes_to_hex_list(self, size):
         hex_bit = binascii.hexlify(self.hand.read(size)).decode("utf-8")
@@ -236,6 +238,17 @@ class Chat:
         chats = self.data.split(b"\x50\x20\x4e\x0d\x0a")[1:]
         for c in chats:
             self.chats.append(c.decode("gbk"))
+
+
+class NoneType:
+    def __init__(self, wdf_unit, hand):
+        self.type = "NoneType"
+        self.offset = wdf_unit.offset
+        self.size = wdf_unit.size
+        self.spaces = wdf_unit.spaces
+        self.hand = hand
+        self.hand.seek(self.offset)
+        self.data = self.hand.read(self.size)
 
 
 class PicPy:    # 用Python去解析帧图片，该方法过慢，已经弃用，保留仅供阅读
