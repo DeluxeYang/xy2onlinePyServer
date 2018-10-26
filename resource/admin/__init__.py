@@ -4,6 +4,7 @@ from .faction import *
 from .skill import *
 from .character import *
 from .character_action import *
+from .character_photo import *
 from .effect import *
 from .monster import *
 from .shape import *

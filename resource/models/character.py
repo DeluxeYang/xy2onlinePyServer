@@ -24,3 +24,16 @@ class CharacterAction(models.Model):
 
     def __str__(self):
         return self.character.name_cn + ": " + self.name + "（方向: " + str(self.was.direction_num) + "）"
+
+
+class CharacterPhoto(models.Model):
+    character = models.ForeignKey(Character, related_name='CharacterPhoto', on_delete=models.CASCADE)
+    was = models.ForeignKey(WAS, related_name='CharacterPhoto', on_delete=models.CASCADE)
+    name = models.CharField(max_length=30)
+    name_cn = models.CharField(max_length=30, null=True, blank=True)
+    level = models.IntegerField(default=0)
+    w = models.IntegerField(default=0)
+    h = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.character.name_cn + ": " + self.name
