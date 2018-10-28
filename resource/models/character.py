@@ -37,3 +37,9 @@ class CharacterPhoto(models.Model):
 
     def __str__(self):
         return self.character.name_cn + ": " + self.name
+
+    def save(self, *args, **kwargs):
+        self.was.hooked = True
+        self.was.describe = self.character.name_cn + ": " + self.name + str(self.level)
+        self.was.save()
+        super().save(*args, **kwargs)
