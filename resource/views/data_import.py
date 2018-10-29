@@ -29,18 +29,22 @@ def get_was_list(request):
 
 
 def task(request):
+
+    return HttpResponse("success!")
+
+
+def import_character_photo(request):
     from resource.models.character import CharacterPhoto
     from xy2onlineServer.settings import STATIC_URL
     from PIL import Image
-
     for cn in []:
         wdf = WDF.objects.get(name="photo.wdf")
         photos = WAS.objects.filter(wdf=wdf, describe=cn)
         list_by_size = []
         for photo in photos:
-            im = Image.open("static/"+str(photo.image))
-            list_by_size.append((im.size[0]*im.size[1], photo, im.size[0], im.size[1]))
-        list_by_size.sort(key=lambda x:x[0])
+            im = Image.open("static/" + str(photo.image))
+            list_by_size.append((im.size[0] * im.size[1], photo, im.size[0], im.size[1]))
+        list_by_size.sort(key=lambda x: x[0])
         character = Character.objects.get(name_cn=cn)
         level = 1
         for photo in list_by_size:
@@ -49,7 +53,7 @@ def task(request):
             cp.was = photo[1]
             cp.level = level
             cp.name = str(level)
-            cp.name_cn = cn + ": " +  str(level)
+            cp.name_cn = cn + ": " + str(level)
             level += 1
             cp.w = photo[2]
             cp.h = photo[3]
