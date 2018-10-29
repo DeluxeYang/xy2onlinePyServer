@@ -18,5 +18,10 @@ class WASAdmin(admin.ModelAdmin):
     image_data.short_description = u'图片'
 
 
-admin.site.register(WDF)
+class WDFAdmin(admin.ModelAdmin):
+    list_display = ("__str__", "describe")
+    list_editable = ("describe",)
+
+
+admin.site.register(WDF, WDFAdmin)
 admin.site.register(WAS, WASAdmin)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from resource.models.shape import Shape, ShapeAction
+from resource.models.shape import Shape, ShapeAction, ShapePhoto
 from django.utils.safestring import mark_safe
 from xy2onlineServer.settings import STATIC_URL
 
@@ -26,9 +26,31 @@ class ShapeActionInline(admin.TabularInline):
     image_data.short_description = u'图片'
 
 
+class ShapePhotoAdmin(admin.ModelAdmin):
+    list_display = ("__str__", 'image_data')
+    readonly_fields = ('image_data',)
+    raw_id_fields = ("was", "shape")
+
+    def image_data(self, obj):
+        return mark_safe(u'<img src="%s%s"/>' % (STATIC_URL, obj.was.image.url))
+
+    image_data.short_description = u'图片'
+
+
+class ShapePhotoInline(admin.TabularInline):
+    model = ShapePhoto
+    extra = 1
+    readonly_fields = ('image_data',)
+
+    def image_data(self, obj):
+        return mark_safe(u'<img src="%s%s"/>' % (STATIC_URL, obj.was.image.url))
+
+    image_data.short_description = u'图片'
+
+
 class ShapeAdmin(admin.ModelAdmin):
     list_display = ("id", "__str__", 'shape_actions')
-    inlines = [ShapeActionInline]
+    inlines = [ShapeActionInline, ShapePhotoInline]
 
     readonly_fields = ('shape_actions',)
 
@@ -45,3 +67,4 @@ class ShapeAdmin(admin.ModelAdmin):
 
 admin.site.register(Shape, ShapeAdmin)
 admin.site.register(ShapeAction, ShapeActionAdmin)
+admin.site.register(ShapePhoto, ShapePhotoAdmin)
