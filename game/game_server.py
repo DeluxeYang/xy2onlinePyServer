@@ -18,9 +18,9 @@ class XY2GameServer(Server):
         self.players = WeakKeyDictionary()
         print('XY2 Server launched')
 
-    def on_connected(self, player, address):
-        print("New Player" + str(player.address))
-        self.players[player] = True
-        player.transmit({
+    def on_connected(self, channel, address):
+        print("New Player" + str(channel.address))
+        self.players[channel] = True
+        channel.transmit({
             "action": "connected",
         })

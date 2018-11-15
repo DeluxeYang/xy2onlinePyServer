@@ -18,7 +18,8 @@ class PlayerChannel(Channel):
                 func_name_list = [x for x in dir(module) if x[:2] != "__"]  # 获得.py中的方法名
                 for func_name in func_name_list:
                     self.__setattr__("network_"+func_name, types.MethodType(getattr(module, func_name), self))
-
+        self.account = None
+        self.characters = {}
 
 if __name__ == "__main__":
     pc = PlayerChannel()
