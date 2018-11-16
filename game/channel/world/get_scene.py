@@ -4,7 +4,7 @@ def get_scene(self, data):
     必要参数：character_id，根据character所在的位置，查找场景信息
     """
     send_data = {
-        'action': "receive_character",
+        'action': data["callback"],
         'map_id': "",
         'NPC' : [],
         'portal': []
