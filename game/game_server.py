@@ -24,3 +24,8 @@ class XY2GameServer(Server):
         channel.transmit({
             "action": "connected",
         })
+
+    def launch(self):
+        while True:
+            self.pump()
+            sleep(0.01)
