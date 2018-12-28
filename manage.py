@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 import os
 import sys
-from threading import Thread
-
 import django
-django.setup()
-
+from threading import Thread
 from game.game_server import XY2GameServer
 from xy2onlineServer.settings import Network_Port
 
@@ -17,6 +14,7 @@ def game_server_thread():
 
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'xy2onlineServer.settings')
+    django.setup()
     try:
         from django.core.management import execute_from_command_line
 
