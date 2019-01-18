@@ -27,7 +27,9 @@ class MountActionInline(admin.TabularInline):
 
 
 class MountAdmin(admin.ModelAdmin):
-    list_display = ("id", "__str__")
+    list_display = ("__str__", "race", "level", "describe",
+                    "init_max_mp", "init_max_ap", "init_max_hp",
+                    "init_max_mp_reinforce", "init_max_ap_reinforce", "init_max_hp_reinforce")
     inlines = [MountActionInline]
 
 
