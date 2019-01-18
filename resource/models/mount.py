@@ -21,7 +21,7 @@ class Mount(models.Model):
     init_max_hp_reinforce = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.race.name_cn + ": " + str(self.level) + " " + self.name_cn
+        return self.name_cn
 
 class MountAction(models.Model):
     mount = models.ForeignKey(Mount, related_name='MountAction', on_delete=models.CASCADE)
