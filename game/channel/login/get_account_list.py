@@ -1,5 +1,6 @@
 from base.models.account import Account
 
+
 def get_account_list(self, data):
     accounts = Account.objects.all()
     account_list = []
