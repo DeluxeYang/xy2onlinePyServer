@@ -15,5 +15,4 @@ def network_get_account(self, data):
             "action": "receive_tip",
             "message": "账户未找到"
         }
-    print(send_data)
     self.transmit(send_data)
