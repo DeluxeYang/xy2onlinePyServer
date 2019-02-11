@@ -12,7 +12,7 @@ def network_get_account(self, data):
         }
     except ObjectDoesNotExist:
         send_data = {
-            "action": "receive_tip",
-            "message": "账户未找到"
+            "action": "notify",
+            "text": "账户未找到"
         }
     self.transmit(send_data)
