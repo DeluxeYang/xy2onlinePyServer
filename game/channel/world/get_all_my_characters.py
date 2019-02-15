@@ -1,4 +1,4 @@
-from base.models.character import Character
+from base.models.role import Character
 
 
 def get_all_my_characters(self, data):
