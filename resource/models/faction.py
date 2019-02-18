@@ -22,6 +22,18 @@ class Faction(models.Model):
             gender = ""
         return self.race.name_cn + ": " + self.name_cn + gender
 
+    def get_data(self):
+        return {
+            'race': self.race,
+            'name': self.name,
+            'name_cn': self.name_cn,
+            'gender': self.gender,
+            'master': self.master,
+            'nick_name': self.nick_name,
+            'describe': self.describe,
+            'feature': self.feature
+        }
+
 
 class Skill(models.Model):
     faction = models.ForeignKey(Faction, related_name='Skill', on_delete=models.CASCADE)

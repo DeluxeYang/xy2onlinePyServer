@@ -7,3 +7,14 @@ class Race(models.Model):
 
     def __str__(self):
         return self.name_cn
+
+    def get_data(self, gender):
+        from .faction import Faction
+        factions = Faction.objects.filter(race=self, gender__in=[0, gender])
+        return_dict = {
+            'name_cn': self.name_cn,
+            'factions': {}
+        }
+        for f in factions:
+            return_dict['factions'][f.name] = f.get_data()
+        return return_dict

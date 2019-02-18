@@ -20,3 +20,9 @@ class Role(models.Model):
         self.account.character_num += 1
         self.account.save()
         super().save(*args, **kwargs)
+
+    def get_role_data(self):
+        return {
+            'account': self.account,
+            'res': self.res.get_data()
+        }

@@ -14,6 +14,26 @@ class Character(models.Model):
     def __str__(self):
         return self.race.name_cn + ": " + self.name_cn
 
+    def get_data(self):
+        actions = CharacterAction.objects.filter(character=self)
+        res_dict = {
+            'name': self.name_cn,
+            'gender': self.gender,
+            'reborn': self.reborn,
+            'describe': self.describe,
+            'race': self.race.name_cn,
+            'factions': self.race.get_data(self.gender),
+            'weapon': {}
+        }
+        for action in actions:
+            if action is not None:
+                if action.weapon not in res_dict['weapon']:
+                    res_dict['weapon'][action.weapon] = {}
+                res_dict['weapon'][action.weapon][action.name] = [action.was.wdf, action.was.hash]
+            else:
+                res_dict[action.name] = [action.was.wdf, action.was.hash]
+        return res_dict
+
 
 class CharacterAction(models.Model):
     character = models.ForeignKey(Character, related_name='CharacterAction', on_delete=models.CASCADE)
