@@ -17,6 +17,7 @@ class Character(models.Model):
     def get_data(self):
         actions = CharacterAction.objects.filter(character=self)
         res_dict = {
+            'id': self.id,
             'name': self.name_cn,
             'gender': self.gender,
             'reborn': self.reborn,

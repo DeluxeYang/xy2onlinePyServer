@@ -24,6 +24,7 @@ class Faction(models.Model):
 
     def get_data(self):
         return {
+            'id': self.id,
             'race': self.race,
             'name': self.name,
             'name_cn': self.name_cn,

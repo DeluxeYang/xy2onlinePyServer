@@ -12,6 +12,7 @@ class Race(models.Model):
         from .faction import Faction
         factions = Faction.objects.filter(race=self, gender__in=[0, gender])
         return_dict = {
+            'id': self.id,
             'name_cn': self.name_cn,
             'factions': {}
         }
