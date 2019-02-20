@@ -24,7 +24,7 @@ class Role(models.Model):
         return self.account.account + self.name
 
     def save(self, *args, **kwargs):
-        self.account.character_num += 1
+        self.account.role_num += 1
         self.account.save()
         super().save(*args, **kwargs)
 
