@@ -6,12 +6,15 @@ from xy2onlineServer.settings import STATIC_URL
 
 
 class CharacterPhotoAdmin(admin.ModelAdmin):
-    list_display = ("__str__", 'image_data', 'level', 'w', 'h')
-    readonly_fields = ('image_data',)
+    list_display = ("__str__", 'image_data', '_hash', 'level', 'w', 'h')
+    readonly_fields = ('image_data', '_hash')
     raw_id_fields = ("was", "character")
 
     def image_data(self, obj):
         return mark_safe(u'<img src="%s%s"/>' % (STATIC_URL, obj.was.image.url))
+
+    def _hash(self, obj):
+        return str(obj.was.wdf) + " " + str(obj.was.hash)
 
     image_data.short_description = u'图片'
 
