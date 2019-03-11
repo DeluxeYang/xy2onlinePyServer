@@ -20,7 +20,7 @@ class PlayerChannel(Channel):
                     if func_name.startswith("network_"):
                         self.__setattr__(func_name, types.MethodType(getattr(module, func_name), self))
         self.account = None
-        self.characters = {}
+        self.roles = {}
 
 
 if __name__ == "__main__":

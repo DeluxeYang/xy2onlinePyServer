@@ -6,22 +6,19 @@ from game.channel.account import Account
 from game.channel.role import Role
 
 
-def network_get_account(self, data):
+def network_login(self, data):
     try:
-        account_model = AccountModel.objects.get(account=data["account"])
-        self.account = Account(account_model.account)
-        role_models = RoleModel.objects.filter(account=account_model)
-        self.account.role_num = len(role_models)
+        self.account = AccountModel.objects.get(account=data["account"])
+        role_models = RoleModel.objects.filter(account=self.account)
         send_data = {
             "action": "receive_account",
-            "account": str(account_model.account),
-            "characters_num": str(account_model.role_num),
+            "account": str(self.account.account),
+            "characters_num": str(self.account.role_num),
             "roles": []
         }
         for role in role_models:
             role_data = role.get_data()
-            role_instance = Role(role_data)
-            self.account.accept_role(role_instance)
+            self.roles[role.name] = role
             send_data["role"].append(role_data)
         print(send_data)
     except ObjectDoesNotExist:
