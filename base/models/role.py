@@ -9,7 +9,7 @@ from resource.models.race import Race
 # Create your models here.
 class Role(models.Model):
     account = models.ForeignKey(Account, related_name='Role', on_delete=models.CASCADE)
-    res = models.ForeignKey(Character, related_name='Role', on_delete=models.CASCADE)
+    character = models.ForeignKey(Character, related_name='Role', on_delete=models.CASCADE)
 
     name = models.CharField(max_length=200)
     level = models.IntegerField(default=0)
@@ -32,7 +32,7 @@ class Role(models.Model):
         return {
             'id': self.id,
             'account': self.account,
-            'res': self.res.get_data(),
+            'res': self.character.get_data(),
             'name': self.name,
             'level': self.level,
             'reborn': self.reborn,

@@ -9,6 +9,7 @@ class Character(models.Model):
     name_cn = models.CharField(max_length=30)
     reborn = models.IntegerField(default=0, choices=((0, "未转形象"), (1, "一转形象"), (3, "三转形象")))
     gender = models.IntegerField(choices=((-1, "female"), (1, "male")))
+    version = models.IntegerField(choices=((0, "old"), (1, "new")), default=0)
     describe = models.CharField(max_length=300)
 
     def __str__(self):
