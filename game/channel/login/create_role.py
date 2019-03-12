@@ -1,5 +1,6 @@
 from base.models.account import Account as AccountModel
 from base.models.role import Role as RoleModel
+from base.models.map import Map
 from resource.models.character import Character
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -18,22 +19,26 @@ def network_create_role(self, data):
                 version=version)
             new_role = RoleModel()
             new_role.account = self.account
-        # account_model = AccountModel.objects.get(account=data["account"])
-        # self.account = Account(account_model.account)
-        # role_models = RoleModel.objects.filter(account=account_model)
-        # self.account.role_num = len(role_models)
-        # send_data = {
-        #     "action": "receive_account",
-        #     "account": str(account_model.account),
-        #     "characters_num": str(account_model.role_num),
-        #     "roles": []
-        # }
-        # for role in role_models:
-        #     role_data = role.get_data()
-        #     role_instance = Role(role_data)
-        #     self.account.accept_role(role_instance)
-        #     send_data["role"].append(role_data)
-        # print(send_data)
+            new_role.character = character
+            new_role.name = data["role_name"]
+            new_role.level = 0
+            new_role.reborn = 0
+            new_role.map = Map.objects.get(map_id='1001')
+            new_role.x = 300
+            new_role.y = 300
+            new_role.save()
+            self.roles[new_role.name] = new_role
+            send_data = {
+                "action": "receive_new_role",
+                "account": str(self.account.account),
+                "characters_num": str(self.account.role_num),
+                "roles": []
+            }
+        else:
+            send_data = {
+                "action": "notify",
+                "text": "角色名重复"
+            }
     except ObjectDoesNotExist:
         send_data = {
             "action": "notify",
