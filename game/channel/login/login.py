@@ -13,13 +13,10 @@ def network_login(self, data):
         send_data = {
             "action": "receive_account",
             "account": str(self.account.account),
-            "characters_num": str(self.account.role_num),
-            "roles": []
+            "roles_num": str(self.account.role_num),
         }
         for role in role_models:
-            role_data = role.get_data()
             self.roles[role.name] = role
-            send_data["role"].append(role_data)
         print(send_data)
     except ObjectDoesNotExist:
         send_data = {
