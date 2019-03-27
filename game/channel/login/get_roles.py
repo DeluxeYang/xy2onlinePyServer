@@ -16,8 +16,8 @@ def network_get_roles(self, data):
         character_photo = CharacterPhoto.objects.get(character=role.character, level=4)
         role_data = {
             "role_name": role.name,
-            "role_level": role.level,
-            "role_gender": role.character.gender,
+            "role_level": role.reborn_choices[role.reborn][1] + str(role.level) + '级',
+            "role_gender": '男' if role.character.gender else '女',
             "role_race": role.character.race.name_cn,
             "role_avatar": [character_photo.was.wdf.name, character_photo.was.hash]
         }
