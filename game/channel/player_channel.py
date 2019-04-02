@@ -4,7 +4,8 @@ import importlib
 from game.network.channel import Channel
 
 modules = [
-    "login"
+    "login",
+    "world"
 ]
 
 
