@@ -8,17 +8,17 @@ def network_get_role(self, data):
     必要参数：character_id
     """
     account_model = Account.objects.get(account=data['account'])
-    role_model = Role.objects.get(account=account_model, name=data['main_role'])
+    role_model = Role.objects.get(account=account_model, name=data['role'])
     send_data = {
-        'action': "receive_role",
+        'action': "receive_main_role" if data['is_main_role'] else "receive_role",
         'account': role_model.account.account,
-        'name': role_model.name,
-        'level': role_model.level,
-        'reborn': role_model.reborn,
+        'role_name': role_model.name,
+        'role_level': role_model.level,
+        'role_reborn': role_model.reborn,
         'race': role_model.character.race.name,
         'version': role_model.character.version_choices[role_model.character.version][1],
         'character': role_model.character.name,
-        'map_id': role_model.map.version_choice[role_model.map.version][1] + role_model.map.map_id,
+        'map_id': role_model.map.version_choice[role_model.map.version][1] + role_model.map.map_id + '.map',
         'x': role_model.x,
         'y': role_model.y
     }
