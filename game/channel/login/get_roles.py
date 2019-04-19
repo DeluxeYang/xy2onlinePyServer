@@ -15,11 +15,15 @@ def network_get_roles(self, data):
     for role in roles:
         character_photo = CharacterPhoto.objects.get(character=role.character, level=4)
         role_data = {
-            "role_name": role.name,
-            "role_level": role.reborn_choices[role.reborn][1] + str(role.level) + '级',
-            "role_gender": '男' if role.character.gender else '女',
-            "role_race": role.character.race.name_cn,
-            "role_avatar": [character_photo.was.wdf.name, character_photo.was.hash]
+            'account': role.account.account,
+            'level': role.level,
+            'reborn': role.reborn,
+            'race': role.character.race.name,
+            'version': role.character.version_choices[role.character.version][1],
+            'character': role.character.name,
+            'role_name': role.name,
+            'gender': role.character.gender,
+            'avatar': [character_photo.was.wdf.name, character_photo.was.hash]
         }
         roles_list.append(role_data)
 

@@ -28,4 +28,4 @@ class XY2GameServer(Server):
     def launch(self):
         while True:
             self.pump()
-            sleep(0.01)
+            sleep(0.1)
