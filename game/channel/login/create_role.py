@@ -24,8 +24,8 @@ def network_create_role(self, data):
             new_role.level = 0
             new_role.reborn = 0
             new_role.map = Map.objects.get(map_id='1001')
-            new_role.x = 300
-            new_role.y = 300
+            new_role.x = 600
+            new_role.y = 600
             new_role.save()
             self.roles[new_role.name] = new_role
             send_data = {
