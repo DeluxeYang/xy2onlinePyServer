@@ -126,4 +126,4 @@ STATICFILES_DIRS = [STATIC_PATH]
 
 XY2_PATH = "H:/旧/大话西游2/"
 
-Network_Port = 9006
+Network_Port = 9008
