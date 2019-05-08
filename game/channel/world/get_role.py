@@ -13,7 +13,8 @@ def network_get_role(self, data):
         'action': "receive_main_role" if data['is_main_role'] else "receive_role",
         'account': role_model.account.account,
         'role_name': role_model.name,
-        'map_id': role_model.map.version_choice[role_model.map.version][1] + role_model.map.map_id + '.map',
+        'map_version': role_model.map.version_choice[role_model.map.version][1],
+        'map_id': role_model.map.map_id,
         'x': role_model.x,
         'y': role_model.y
     }

@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class Map(models.Model):
-    version_choice = ((0, "scene/"), (1, "newscene/"))
+    version_choice = ((0, "scene"), (1, "newscene"))
     map_id = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
     version = models.IntegerField(choices=version_choice)

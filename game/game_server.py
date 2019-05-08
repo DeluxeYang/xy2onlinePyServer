@@ -25,6 +25,11 @@ class XY2GameServer(Server):
             "action": "connected",
         })
 
+    def broadcast(self, data, except_myself):
+        for player in self.players:
+            if player.account.account != except_myself:
+                player.transmit(data)
+
     def launch(self):
         while True:
             self.pump()

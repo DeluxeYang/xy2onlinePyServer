@@ -1,0 +1,26 @@
+from base.models.account import Account
+from base.models.role import Role
+from base.models.map import Map
+
+
+def network_moving(self, data):
+    """
+    获取角色全部信息
+    必要参数：character_id
+    """
+    account_model = Account.objects.get(account=data['account'])
+    role_model = Role.objects.get(account=account_model, name=data['role_name'])
+    if role_model.map.map_id != data['map_id']:
+        role_model.map = Map.objects.get(map_id=data['map_id'])
+    role_model.x = data['path_list'][-1][0]
+    role_model.y = data['path_list'][-1][1]
+    role_model.save()
+    send_data = {
+        'action': "receive_moving",
+        'role_name': role_model.name,
+        'map_id': role_model.map.map_id,
+        'path_list': data['path_list'],
+        'is_running': data['is_running']
+    }
+    print(send_data)
+    self._server.broadcast(data=send_data, except_myself=data['account'])
