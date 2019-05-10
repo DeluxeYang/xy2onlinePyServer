@@ -15,3 +15,6 @@ class Map(models.Model):
             'name': self.name,
             'version': self.version_choice[self.version][1]
         }
+
+    def __str__(self):
+        return self.name + "" + self.version_choice[self.version][1] + "/" + self.map_id
