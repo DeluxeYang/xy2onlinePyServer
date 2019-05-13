@@ -11,9 +11,9 @@ class Portal(models.Model):
     x = models.IntegerField(default=0)
     y = models.IntegerField(default=0)
 
-    target_map_id = models.CharField(max_length=200)
+    target_map = models.ForeignKey(Map, related_name='PrePortal', on_delete=models.CASCADE)
     target_x = models.IntegerField(default=0)
     target_y = models.IntegerField(default=0)
 
     def __str__(self):
-        return str(self.map) + str(self.x) + str(self.y)
+        return str(self.map) + " --> " + str(self.target_map)

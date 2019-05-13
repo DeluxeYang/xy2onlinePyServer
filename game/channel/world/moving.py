@@ -5,7 +5,7 @@ from base.models.map import Map
 
 def network_moving(self, data):
     """
-    获取角色全部信息
+    接收玩家移动信息
     必要参数：character_id
     """
     account_model = Account.objects.get(account=data['account'])
