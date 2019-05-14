@@ -3,12 +3,10 @@ import os
 import sys
 import django
 from threading import Thread
-from game.game_server import XY2GameServer
-from xy2onlineServer.settings import Network_Port
+from game.game_server import game_server
 
 
 def game_server_thread():
-    game_server = XY2GameServer(local_address=("localhost", int(Network_Port)))
     game_server.launch()
 
 

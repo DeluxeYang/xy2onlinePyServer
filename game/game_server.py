@@ -7,10 +7,21 @@ from weakref import WeakKeyDictionary
 
 from game.network.server import Server
 from game.channel.player_channel import PlayerChannel
+from xy2onlineServer.settings import Network_Port
 
 
 class XY2GameServer(Server):
     channel_class = PlayerChannel
+    __instance = None
+
+    def __new__(cls, *args, **kwargs):
+        """
+        重写实现单例
+        :return: 单例
+        """
+        if cls.__instance is None:
+            cls.__instance = super(XY2GameServer, cls).__new__(cls)
+        return cls.__instance
 
     def __init__(self, *args, **kwargs):
         self.id = 0
@@ -34,3 +45,6 @@ class XY2GameServer(Server):
         while True:
             self.pump()
             sleep(0.1)
+
+
+game_server = XY2GameServer(local_address=("localhost", int(Network_Port)))

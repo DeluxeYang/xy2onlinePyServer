@@ -4,6 +4,7 @@ from resource.models.wdf import WDF
 from resource.models.character import *
 from resource.models.shape import *
 from resource.models.monster import Monster, MonsterAction
+from game.game_server import game_server
 
 
 def wdf_import(request):
@@ -28,8 +29,9 @@ def get_was_list(request):
 
 
 def task(request):
-
-    return HttpResponse("success!")
+    send_data = {'action': "refresh_scene"}
+    game_server.broadcast(send_data, except_myself="")
+    return HttpResponse(send_data)
 
 
 def import_character_photo(request):
