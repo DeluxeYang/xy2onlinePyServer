@@ -1,4 +1,4 @@
-from base.models.map import Map
+from base.models.map import Map, get_version
 from base.models.portal import Portal
 
 
@@ -7,9 +7,11 @@ def network_get_portal_list(self, data):
     获取角色全部信息
     必要参数：character_id
     """
-    portal_models = Portal.objects.filter(map__map_id=data['map_id'])
+    _map = Map.objects.get(map_id=data['map_id'], version=get_version(data['map_version']))
+    portal_models = Portal.objects.filter(map=_map)
     portal_list = [{
         'type': 'portal',
+        'map_version': data['map_version'],
         'map_id': data['map_id'],
         'x': portal.x,
         'y': portal.y,

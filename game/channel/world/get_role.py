@@ -7,8 +7,7 @@ def network_get_role(self, data):
     获取角色全部信息
     必要参数：character_id
     """
-    account_model = Account.objects.get(account=data['account'])
-    role_model = Role.objects.get(account=account_model, name=data['role'])
+    role_model = Role.objects.get(account__account=data['account'], name=data['role'])
     send_data = {
         'action': "receive_main_role" if data['is_main_role'] else "receive_role",
         'account': role_model.account.account,

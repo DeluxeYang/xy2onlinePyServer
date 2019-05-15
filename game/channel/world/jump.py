@@ -1,6 +1,6 @@
 from base.models.account import Account
 from base.models.role import Role
-from base.models.map import Map
+from base.models.map import Map, get_version
 
 
 def network_jump(self, data):
@@ -10,7 +10,7 @@ def network_jump(self, data):
     """
     role_model = Role.objects.get(account__account=data['account'], name=data['role_name'])
     if role_model.map.map_id != data['target_map_id']:
-        role_model.map = Map.objects.get(map_id=data['target_map_id'])
+        role_model.map = Map.objects.get(map_id=data['target_map_id'], version=get_version(data['target_map_version']))
     role_model.x = data['target_x']
     role_model.y = data['target_y']
     role_model.save()
