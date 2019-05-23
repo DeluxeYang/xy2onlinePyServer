@@ -15,6 +15,7 @@ def network_get_other_players(self, data):
         'map_version': data['map_version'],
         'map_id': data['map_id'],
         'players': [{
+            'role_id': role.id,
             'role_name': role.name,
             'level': role.level,
             'reborn': role.reborn,

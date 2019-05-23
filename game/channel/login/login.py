@@ -16,7 +16,7 @@ def network_login(self, data):
             "roles_num": str(self.account.role_num),
         }
         for role in role_models:
-            self.roles[role.name] = role
+            self.roles[role.id] = role
         print(send_data)
     except ObjectDoesNotExist:
         send_data = {

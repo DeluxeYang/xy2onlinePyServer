@@ -29,10 +29,7 @@ def network_create_role(self, data):
             new_role.save()
             self.roles[new_role.name] = new_role
             send_data = {
-                "action": "receive_new_role",
-                "account": str(self.account.account),
-                "characters_num": str(self.account.role_num),
-                "roles": []
+                "action": "receive_new_role"
             }
         else:
             send_data = {

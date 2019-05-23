@@ -17,6 +17,8 @@ def network_moving(self, data):
     role_model.save()
     send_data = {
         'action': "receive_moving",
+        'except_account': data['account'],
+        'role_id': role_model.id,
         'role_name': role_model.name,
         'map_id': role_model.map.map_id,
         'map_version': role_model.map.version_choice[role_model.map.version][1],
