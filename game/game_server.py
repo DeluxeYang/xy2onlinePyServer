@@ -38,6 +38,8 @@ class XY2GameServer(Server):
 
     def broadcast(self, data, except_myself):
         for player in self.players:
+            print(player)
+            print(player.account)
             if player.account.account != except_myself:
                 player.transmit(data)
 
