@@ -23,6 +23,7 @@ def network_get_portal_list(self, data):
         for portal in portal_models]
     send_data = {
         'action': "receive_portal_list",
+        'map_version': data['map_version'],
         'map_id': data['map_id'],
         'portal_list': portal_list
     }

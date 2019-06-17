@@ -16,3 +16,6 @@ class NPC(models.Model):
     direction = models.IntegerField(default=0)
 
     npc_type = models.IntegerField(default=0, choices=type_choices)
+
+    def __str__(self):
+        return self.name + "(" + str(self.map) + ", " + str(self.x) + ", " + str(self.y) + ")"
